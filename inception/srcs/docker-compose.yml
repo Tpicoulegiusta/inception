@@ -10,6 +10,7 @@ services:
           - .env
         volumes:
             - mariadb:/var/lib/mysql
+            - ../secrets/credentials.txt
         
     nginx:
         image: nginx
@@ -26,6 +27,7 @@ services:
           - .env
         volumes:
             - wordpress:/var/www/html
+            - ../secrets/db_password.txt
 
     wordpress:
         image: wordpress
@@ -40,6 +42,7 @@ services:
           - .env
         volumes:
             - wordpress:/var/www/html
+            - ../secrets/db_root_password.txt
 
 networks:
   inception:
