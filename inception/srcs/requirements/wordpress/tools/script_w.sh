@@ -6,12 +6,16 @@ while ! mariadb -h $DB_HOST -u $DB_USER -p$DB_PASSWORD -e "show databases;"; do
     sleep 1
 done
 
+echo "//CONNECTED TO DATABASE"
+pwd
 # Télécharger et configurer WordPress
-if [ ! -f "$WP_PATH/wp-config.php" ]; then
+if [ ! -f "/var/www/html/wp-config.php" ]; then
+    echo "//avant"
     wp core download --path=$WP_PATH --allow-root
+    echo "//apres"
 
     if [ $? -ne 0 ]; then
-        echo "Error downloading WordPress"
+        echo "//Error downloading WordPress"
         exit 1
     fi
 
