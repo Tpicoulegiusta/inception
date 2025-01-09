@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Lire les secrets
+if [ -f "/run/secrets/db_root_password" ]; then
+	. /run/secrets/db_root_password
+fi
+
 # Attendre la disponibilité de la base de données
 while ! mariadb -h $DB_HOST -u $DB_USER -p$DB_PASSWORD -e "show databases;"; do
     echo "Waiting for database connection..."
@@ -7,7 +12,7 @@ while ! mariadb -h $DB_HOST -u $DB_USER -p$DB_PASSWORD -e "show databases;"; do
 done
 
 echo "//CONNECTED TO DATABASE"
-pwd
+
 # Télécharger et configurer WordPress
 if [ ! -f "/var/www/html/wp-config.php" ]; then
     echo "//avant"

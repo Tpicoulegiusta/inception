@@ -9,8 +9,15 @@ services:
         env_file:
           - .env
         volumes:
-            - mariadb:/var/lib/mysql
-            - ../secrets/credentials.txt
+          - mariadb:/var/lib/mysql
+        environment:
+          MYSQL_PASSWORD_FILE: /run/secrets/db_password
+          CREDENTIALS_FILE: /run/secrets/credentials
+        secrets:
+          - db_root_password
+          - db_password
+          - credentials
+
         
     nginx:
         image: nginx
@@ -26,8 +33,11 @@ services:
         env_file:
           - .env
         volumes:
-            - wordpress:/var/www/html
-            - ../secrets/db_password.txt
+          - wordpress:/var/www/html
+        secrets:
+          - db_root_password
+          - db_password
+          - credentials
 
     wordpress:
         image: wordpress
@@ -41,8 +51,14 @@ services:
         env_file:
           - .env
         volumes:
-            - wordpress:/var/www/html
-            - ../secrets/db_root_password.txt
+          - wordpress:/var/www/html
+        environment:
+          ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+          CREDENTIALS_FILE: /run/secrets/credentials
+        secrets:
+          - db_root_password
+          - db_password
+          - credentials
 
 networks:
   inception:
@@ -64,4 +80,11 @@ volumes:
       type: none
       device: ~/data/mariadb
       o: bind
-    
+
+secrets:
+  credentials:
+    file: ../secrets/credentials.txt
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt

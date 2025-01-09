@@ -7,4 +7,5 @@ COPY ./tools/script.sh ./script.sh
 RUN chmod +x ./script.sh
 EXPOSE 3306
 CMD ["sh", "./script.sh"]
-# ENTRYPOINT [] <<----- command pour build obligatoirement sinon pas marcher
+# "/home/tpicoule/Documents/inception/secrets/db_root_password.txt", the following file should be created 
+# "/home/tpicoule/Documents/inception/secrets/db_root_password.txt"
