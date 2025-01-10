@@ -24,10 +24,6 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
         exit 1
     fi
 
-    chown -R nginx:nginx $WP_PATH
-    find $WP_PATH -type d -exec chmod 755 {} \;
-    find $WP_PATH -type f -exec chmod 644 {} \;
-
     wp config create --path=$WP_PATH --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --dbprefix="wp_" --allow-root
     wp core install --path=$WP_PATH --url=$WP_URL --title="$WP_TITLE" --admin_user=$WP_USERADMIN --admin_password=$WP_PASSWORDADMIN --admin_email=$WP_EMAILADMIN --allow-root
     wp user create --path=$WP_PATH $WP_USERDUMMY $WP_EMAILDUMMY --role=editor --user_pass=$WP_PASSWORDDUMMY --allow-root
