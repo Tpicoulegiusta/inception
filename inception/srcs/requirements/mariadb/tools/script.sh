@@ -5,6 +5,10 @@ if [ -f "/run/secrets/db_password" ]; then
 	. /run/secrets/db_password
 fi
 
+if [ -f "/run/secrets/credentials" ]; then
+    . /run/secrets/credentials
+fi
+
 mysql_install_db --user=root --datadir=/var/lib/mysql
 
 mysqld_safe --user=root --datadir=/var/lib/mysql &

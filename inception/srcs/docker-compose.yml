@@ -18,7 +18,6 @@ services:
           - db_password
           - credentials
 
-        
     nginx:
         image: nginx
         container_name: nginx
